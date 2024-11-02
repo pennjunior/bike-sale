@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_11_02_151903) do
+ActiveRecord::Schema[7.1].define(version: 2024_11_02_204649) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -39,6 +39,68 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_02_151903) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "bikes", force: :cascade do |t|
+    t.string "name"
+    t.decimal "kilometer"
+    t.string "purpose"
+    t.string "colour"
+    t.integer "engine_capacity"
+    t.string "registration_status"
+    t.date "release_date"
+    t.text "description"
+    t.text "details"
+    t.decimal "price"
+    t.integer "stock"
+    t.integer "category_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_bikes_on_category_id"
+  end
+
+  create_table "cart_items", force: :cascade do |t|
+    t.integer "bike_id", null: false
+    t.integer "cart_id", null: false
+    t.integer "quantity"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["bike_id"], name: "index_cart_items_on_bike_id"
+    t.index ["cart_id"], name: "index_cart_items_on_cart_id"
+  end
+
+  create_table "carts", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_carts_on_user_id"
+  end
+
+  create_table "categories", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "order_items", force: :cascade do |t|
+    t.integer "order_id", null: false
+    t.integer "bike_id", null: false
+    t.integer "quantity"
+    t.decimal "unit_price"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["bike_id"], name: "index_order_items_on_bike_id"
+    t.index ["order_id"], name: "index_order_items_on_order_id"
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.decimal "total_amount"
+    t.string "shipping_address"
+    t.date "order_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_orders_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -53,4 +115,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_02_151903) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "bikes", "categories"
+  add_foreign_key "cart_items", "bikes"
+  add_foreign_key "cart_items", "carts"
+  add_foreign_key "carts", "users"
+  add_foreign_key "order_items", "bikes"
+  add_foreign_key "order_items", "orders"
+  add_foreign_key "orders", "users"
 end
