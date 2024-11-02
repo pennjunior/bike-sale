@@ -39,8 +39,8 @@ Rails.application.configure do
     config.action_mailer.smtp_settings = {
       address:              'smtp.gmail.com',
       port:                 587,
-      domain:               'bikesale.com', # replace with your domain if needed
-      user_name:            'skytronics@gmail.com', # replace with your email
+      domain:               'bikesale.us', # replace with your domain if needed
+      user_name:            'skytronics005@gmail.com', # replace with your email
       password:             'RUqn#9%^^RV', # replace with your email password
       authentication:       'plain',
       enable_starttls_auto: true
@@ -53,7 +53,7 @@ config.action_mailer.raise_delivery_errors = true
   end
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
-  config.active_storage.service = :local
+  config.active_storage.service = :cloudinary
 
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false
