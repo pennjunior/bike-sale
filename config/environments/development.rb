@@ -29,6 +29,25 @@ Rails.application.configure do
     }
   else
     config.action_controller.perform_caching = false
+    # Set the default URL options for the development environment
+    config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+
+    # Use SMTP to send emails in development
+    config.action_mailer.delivery_method = :smtp
+
+    # SMTP settings for Gmail (or any other email provider)
+    config.action_mailer.smtp_settings = {
+      address:              'smtp.gmail.com',
+      port:                 587,
+      domain:               'bikesale.com', # replace with your domain if needed
+      user_name:            'skytronics@gmail.com', # replace with your email
+      password:             'RUqn#9%^^RV', # replace with your email password
+      authentication:       'plain',
+      enable_starttls_auto: true
+    }
+
+# Set to true if you want to see delivery errors in development
+config.action_mailer.raise_delivery_errors = true
 
     config.cache_store = :null_store
   end

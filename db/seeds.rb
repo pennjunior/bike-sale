@@ -7,3 +7,16 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+Bike.create! {
+  Name :
+  Bike :
+  Kilometers :
+  Body :
+  Colour :
+  Engine Capacity :
+  Configuration :
+  Registeration Status :
+  Release Date :
+  Description :
+  Details :
+}
